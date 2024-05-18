@@ -1,0 +1,46 @@
+---
+import { SignIn, SignOut } from 'auth-astro/components';
+import { getSession} from 'auth-astro/server';
+
+const session = await getSession(Astro.request)
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf8">
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>Astro Auth</title>
+</head>
+<body>
+	<h1>Astro Auth</h1>
+	{session ? (
+		<>
+			<p>Welcome {session.user?.name}</p>
+			<SignOut>
+					Log out
+			</SignOut>
+		</>
+	) : (
+		<>
+		<div>
+			<SignIn provider="google">
+					Sign in with Google
+			</SignIn>
+		</div>
+		<div>
+			<SignIn provider="github">
+					Sign in with Github
+			</SignIn>
+		</div>
+		<div>
+			<SignIn provider="linkedin">
+					Sign in with LinkedIn
+			</SignIn>
+		</div>
+		</>
+	)}
+</body>
+</html>
+
